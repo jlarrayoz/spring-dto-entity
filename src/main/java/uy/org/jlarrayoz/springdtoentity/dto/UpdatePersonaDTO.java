@@ -1,5 +1,6 @@
 package uy.org.jlarrayoz.springdtoentity.dto;
 
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -13,8 +14,10 @@ import uy.org.jlarrayoz.springdtoentity.generic.dto.BaseGenericDTO;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonaDTO implements BaseGenericDTO {
+public class UpdatePersonaDTO implements BaseGenericDTO {
 
+    @Id
+    @NotNull
     private Long id;
 
     @NotNull
@@ -30,6 +33,4 @@ public class PersonaDTO implements BaseGenericDTO {
     @NotEmpty
     @Length(max = 40)
     private String apellido;
-
-    private TipoDocumentoDTO tipoDocumento;
 }

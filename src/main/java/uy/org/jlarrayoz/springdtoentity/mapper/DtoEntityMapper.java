@@ -17,6 +17,10 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 import uy.org.jlarrayoz.springdtoentity.annotation.DTO;
+import uy.org.jlarrayoz.springdtoentity.annotation.GenericDTO;
+import uy.org.jlarrayoz.springdtoentity.generic.annotation.GenericDtoType;
+import uy.org.jlarrayoz.springdtoentity.generic.rest.BaseRestController;
+import uy.org.jlarrayoz.springdtoentity.generic.util.MyAnnotationUtils;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -38,7 +42,7 @@ public class DtoEntityMapper extends RequestResponseBodyMethodProcessor {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.hasParameterAnnotation(DTO.class);
+        return parameter.hasParameterAnnotation(DTO.class) || parameter.hasParameterAnnotation(GenericDTO.class);
     }
 
     /**
@@ -58,7 +62,7 @@ public class DtoEntityMapper extends RequestResponseBodyMethodProcessor {
         if (id.isEmpty()) {
             return modelMapper.map(dto, parameter.getParameterType());
         } else {
-            Object persistedObject = entityManager.find(parameter.getParameterType(), id);
+            Object persistedObject = entityManager.find(parameter.getParameterType(), id.get());
             modelMapper.map(dto, persistedObject);
             return persistedObject;
         }
@@ -67,9 +71,23 @@ public class DtoEntityMapper extends RequestResponseBodyMethodProcessor {
     @Override
     protected Object readWithMessageConverters(HttpInputMessage inputMessage, MethodParameter parameter, Type targetType) throws IOException, HttpMediaTypeNotSupportedException, HttpMessageNotReadableException {
         for (Annotation ann : parameter.getParameterAnnotations()) {
-            DTO dtoType = AnnotationUtils.getAnnotation(ann, DTO.class);
-            if (dtoType != null) {
-                return super.readWithMessageConverters(inputMessage, parameter, dtoType.value());
+            DTO dtoAnn = AnnotationUtils.getAnnotation(ann, DTO.class);
+            if (dtoAnn != null) {
+                return super.readWithMessageConverters(inputMessage, parameter, dtoAnn.value());
+            }
+            else{
+                GenericDTO genericDtoAnn = AnnotationUtils.getAnnotation(ann, GenericDTO.class);
+
+                if (genericDtoAnn != null){
+
+                    //Obtengo el tipo del param (Debería ser una entity que extienda de BaseEntity)
+                    Class<?> parameterType = parameter.getParameterType();
+
+                    //Obtengo el método del BaseRestController que se esta ejecutando
+                    String restConstrollerMethodName = parameter.getExecutable().getName();
+
+                    return super.readWithMessageConverters(inputMessage, parameter, MyAnnotationUtils.getGenericDtoToRestController(restConstrollerMethodName, parameterType));
+                }
             }
         }
         throw new RuntimeException();
