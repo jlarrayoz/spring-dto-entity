@@ -1,7 +1,7 @@
 package uy.org.jlarrayoz.springdtoentity.repository;
 
+import com.uy.jlarrayoz.genericrestapi.repository.BaseGenericRepository;
 import uy.org.jlarrayoz.springdtoentity.entity.TipoDocumento;
-import uy.org.jlarrayoz.springdtoentity.generic.repository.BaseRepository;
 
-public interface TipoDocumentoRepository extends BaseRepository<TipoDocumento> {
+public interface TipoDocumentoRepository extends BaseGenericRepository<TipoDocumento> {
 }

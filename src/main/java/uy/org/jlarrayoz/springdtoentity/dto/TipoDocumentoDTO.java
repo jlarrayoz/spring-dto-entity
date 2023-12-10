@@ -1,10 +1,11 @@
 package uy.org.jlarrayoz.springdtoentity.dto;
 
+import com.uy.jlarrayoz.genericrestapi.dto.BaseGenericDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uy.org.jlarrayoz.springdtoentity.generic.dto.BaseGenericDTO;
+
 
 @Builder
 @Data

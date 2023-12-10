@@ -1,7 +1,8 @@
 package uy.org.jlarrayoz.springdtoentity.repository;
 
+import com.uy.jlarrayoz.genericrestapi.repository.BaseGenericRepository;
 import uy.org.jlarrayoz.springdtoentity.entity.Persona;
-import uy.org.jlarrayoz.springdtoentity.generic.repository.BaseRepository;
 
-public interface PersonaRepository extends BaseRepository<Persona> {
+
+public interface PersonaRepository extends BaseGenericRepository<Persona> {
 }

@@ -1,5 +1,6 @@
 package uy.org.jlarrayoz.springdtoentity.dto;
 
+import com.uy.jlarrayoz.genericrestapi.dto.BaseGenericDTO;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -8,7 +9,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
-import uy.org.jlarrayoz.springdtoentity.generic.dto.BaseGenericDTO;
 
 @Builder
 @Data

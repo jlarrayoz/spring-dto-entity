@@ -1,5 +1,7 @@
 package uy.org.jlarrayoz.springdtoentity.entity;
 
+import com.uy.jlarrayoz.genericrestapi.annotation.GenericDtoType;
+import com.uy.jlarrayoz.genericrestapi.entity.BaseGenericEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,9 +14,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import uy.org.jlarrayoz.springdtoentity.dto.PersonaDTO;
 import uy.org.jlarrayoz.springdtoentity.dto.UpdatePersonaDTO;
-import uy.org.jlarrayoz.springdtoentity.generic.annotation.GenericDtoType;
-import uy.org.jlarrayoz.springdtoentity.generic.entity.BaseEntity;
-
 
 @Entity
 @Data
@@ -22,7 +21,7 @@ import uy.org.jlarrayoz.springdtoentity.generic.entity.BaseEntity;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=true)
 @GenericDtoType(queryDTO = PersonaDTO.class, insertDTO = PersonaDTO.class, updateDTO = UpdatePersonaDTO.class)
-public class Persona extends BaseEntity {
+public class Persona extends BaseGenericEntity {
 
     @NotNull
     @Column(length = 10)
