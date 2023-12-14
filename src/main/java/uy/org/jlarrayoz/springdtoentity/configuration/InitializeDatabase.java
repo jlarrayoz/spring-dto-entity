@@ -12,7 +12,7 @@ import uy.org.jlarrayoz.springdtoentity.repository.PersonaRepository;
 public class InitializeDatabase {
 
     @Bean
-    CommandLineRunner dataLoader(PersonaRepository repoPersona, BaseGenericRepository<TipoDocumento> repoTipoDocumento) {
+    CommandLineRunner dataLoader(PersonaRepository repoPersona, BaseGenericRepository<TipoDocumento, Long> repoTipoDocumento) {
         return (args -> {
             TipoDocumento ci = new TipoDocumento("Cedula de Identidad");
             ci = repoTipoDocumento.save(ci);

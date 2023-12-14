@@ -8,7 +8,7 @@ import uy.org.jlarrayoz.springdtoentity.repository.PersonaRepository;
 
 @RestController
 @RequestMapping(value = "/personageneric")
-public class PersonaGenericRestController extends BaseGenericRestController<Persona> {
+public class PersonaGenericRestController extends BaseGenericRestController<Persona, Long> {
 
     public PersonaGenericRestController(PersonaRepository repository) {
         super(repository);
